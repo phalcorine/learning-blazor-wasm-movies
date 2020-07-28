@@ -14,7 +14,7 @@
             </ul>
         </div>
         <div class="card-footer">
-            <button class="btn btn-block btn-danger" disabled="@(IsAdmin ? "disabled" : null)" @onclick="Delete">Delete</button>
+            <button class="btn btn-block btn-danger" disabled="@(IsAdmin ? "disabled" : null)" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">Delete</button>
         </div>
     </div>
 </div>
@@ -27,11 +27,8 @@
     [Parameter]
     public bool IsAdmin { get; set; } = false;
 
-    async Task Delete()
-    {
-        Console.WriteLine($"Deleting movie: { Movie }...");
-        await Task.Delay(5000);
-        Console.WriteLine($"{ Movie } deleted!!!");
-    }
+    [Parameter]
+    public EventCallback<Movie> DeleteMovie { get; set; }
+
 
 }
