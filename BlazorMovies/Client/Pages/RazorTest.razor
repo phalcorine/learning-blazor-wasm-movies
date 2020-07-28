@@ -1,11 +1,22 @@
 ﻿@page "/razortest"
+@using Client.Helpers;
 
 <h3>RazorTest</h3>
 
-<p>Hello, @name</p>
+<p>Hello, @CustomToUpper(name)</p>
+
+<p>Hey, 2 + 2 = @(2 + 2)</p>
+
+<button class="btn btn-block btn-primary" @onclick="@(() => StringUtilities.ToLower("Meow, Meow"))">Write Message To Lower</button>
+<button class="btn btn-block btn-primary" @onclick="@(() => StringUtilities.ToUpper("Meow, Meow"))">Write Message To Upper</button>
 
 @code {
 
     string name = "Andromadus";
 
+    string CustomToUpper(string value) => value.ToUpper();
+
+    void WriteMessageToConsole(string message) => Console.WriteLine($"Console Message: { message }");
+
 }
+
