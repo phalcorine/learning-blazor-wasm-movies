@@ -14,7 +14,7 @@
             </ul>
         </div>
         <div class="card-footer">
-            <button class="btn btn-block btn-danger" @onclick="Delete">Delete</button>
+            <button class="btn btn-block btn-danger" disabled="@(IsAdmin ? "disabled" : null)" @onclick="Delete">Delete</button>
         </div>
     </div>
 </div>
@@ -23,6 +23,9 @@
 
     [Parameter]
     public Movie Movie { get; set; }
+
+    [Parameter]
+    public bool IsAdmin { get; set; } = false;
 
     async Task Delete()
     {

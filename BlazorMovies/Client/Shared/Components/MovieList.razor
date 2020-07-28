@@ -16,10 +16,23 @@
         }
         else
         {
-            @foreach (var movie in Movies)
-            {
-                <MovieItem Movie="movie" />
-            }
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" @onchange="@(() => isAdmin = !isAdmin)" />IS Admin?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                @foreach (var movie in Movies)
+                {
+                    <MovieItem Movie="movie" IsAdmin="isAdmin" />
+                }
+            </div>
+            
 
         }
 
@@ -30,6 +43,8 @@
 
     [Parameter]
     public IList<Movie> Movies { get; set; } = new List<Movie>();
+
+    bool isAdmin = false;
 
     protected async override Task OnInitializedAsync()
     {
