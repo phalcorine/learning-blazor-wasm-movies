@@ -1,92 +1,10 @@
 ﻿@page "/razortest"
-@using Client.Helpers;
 
 <h3>All Movies</h3>
 
-<div class="container-fluid">
-    <div class="row">
-        @if (movies == null)
-        {
-            <h4 class="card-title" align="center">
-                Movies are loading...
-            </h4>
-        }
-        else if(movies.Count == 0)
-        {
-            <h4 class="card-title" align="center">
-                No movies found in the database...
-            </h4>
-        }
-        else
-        {
-            @foreach (var movie in movies)
-            {
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                Movie Details
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li>Movie ID: @movie.Id</li>
-                                <li>Movie Title: @movie.Title</li>
-                                <li>Movie Description: @movie.Description</li>
-                                <li>Movie Released Date: @movie.ReleasedDate.ToString(DateTimeUtilities.NORMALIZED_DATE_FORMAT)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            }
-
-        }
-        
-    </div>
-</div>
-
-
+<MovieList />
 
 @code {
-
-    string name = "Andromadus";
-
-    IList<Movie> movies;
-
-    protected async override Task OnInitializedAsync()
-    {
-        await Task.Delay(5000);
-        movies = GetMovies();
-    }
-
-    IList<Movie> GetMovies()
-    {
-        return new List<Movie>()
-{
-        new Movie()
-        {
-            Title = "Mad O!!!",
-            Description = "A mad movie... ",
-            ReleasedDate = new DateTime(2020, 6, 5)
-        },
-        new Movie()
-        {
-            Title = "Attack on Titan: Chronicles",
-            Description = "This is the best movie ever",
-            ReleasedDate = new DateTime(2020, 6, 5)
-        },
-        new Movie()
-        {
-            Title = "Sonic the Hedgehog",
-            Description = "This movie has the greatest comeback",
-            ReleasedDate = new DateTime(2020, 6, 5)
-        },
-    };
-    }
-
-    string CustomToUpper(string value) => value.ToUpper();
-
-    void WriteMessageToConsole(string message) => Console.WriteLine($"Console Message: { message }");
 
 }
 
