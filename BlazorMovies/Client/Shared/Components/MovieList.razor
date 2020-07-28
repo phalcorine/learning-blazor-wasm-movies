@@ -18,23 +18,7 @@
         {
             @foreach (var movie in Movies)
             {
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                Movie Details
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li>Movie ID: @movie.Id</li>
-                                <li>Movie Title: @movie.Title</li>
-                                <li>Movie Description: @movie.Description</li>
-                                <li>Movie Released Date: @movie.ReleasedDate.ToString(DateTimeUtilities.NORMALIZED_DATE_FORMAT)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <MovieItem Movie="movie" />
             }
 
         }
