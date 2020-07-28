@@ -11,6 +11,12 @@
                 Movies are loading...
             </h4>
         }
+        else if(movies.Count == 0)
+        {
+            <h4 class="card-title" align="center">
+                No movies found in the database...
+            </h4>
+        }
         else
         {
             @foreach (var movie in movies)
