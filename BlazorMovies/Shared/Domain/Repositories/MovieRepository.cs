@@ -7,6 +7,13 @@ namespace BlazorMovies.Shared.Domain.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
+        private IList<Movie> _movies;
+
+        public MovieRepository()
+        {
+            _movies = GetMovies();
+        }
+
         public IList<Movie> Find(string where)
         {
             throw new NotImplementedException();
@@ -18,6 +25,11 @@ namespace BlazorMovies.Shared.Domain.Repositories
         }
 
         public IList<Movie> FindAll()
+        {
+            return _movies;
+        }
+
+        private IList<Movie> GetMovies()
         {
             return new List<Movie>()
             {
