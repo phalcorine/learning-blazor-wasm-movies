@@ -19,8 +19,8 @@
     </ElementTemplate>
 </GenericList>
 
-<ConfirmationModal @ref="confirmationModal">
-    <div>Do you want to delete this item?</div>
+<ConfirmationModal @ref="confirmationModal" OnConfirm="OnConfirm" OnCancel="OnCancel">
+    <div>Do you want to delete @movieToBeDeleted.Title?</div>
 </ConfirmationModal>
 
 @code {
@@ -32,25 +32,29 @@
     bool isAdmin = false;
 
     ConfirmationModal confirmationModal;
+    Movie movieToBeDeleted = null;
 
-    async Task DeleteMovie(Movie movie)
+    void DeleteMovie(Movie movie)
     {
+        movieToBeDeleted = movie;
         confirmationModal.Show();
+    }
 
-        // Delete movie confirmation
-        @*var confirmed = await JS.Confirm($"Do you really want to delete the movie: { movie.Title }");
-
-        if(confirmed == false)
-        {
-            await JS.Alert("Better safe than sorry...");
-
-            return;
-        }
-
+    private async Task OnConfirm()
+    {
         await Task.Delay(5000);
-        Movies.Remove(movie);
+        Movies.Remove(movieToBeDeleted);
+        movieToBeDeleted = null;
+
         await JS.Alert("Yay! Movie deleted successfully...");
-        Console.WriteLine($"{ movie } deleted!!!");*@
+        confirmationModal.Hide();
+    }
+
+    private async Task OnCancel()
+    {
+        confirmationModal.Hide();
+
+        await JS.Alert("Better safe than sorry...");
     }
 
     protected async override Task OnInitializedAsync()
