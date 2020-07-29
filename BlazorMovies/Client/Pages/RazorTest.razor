@@ -2,7 +2,14 @@
 
 <h3>All Movies</h3>
 
-<MovieList Movies="movies" />
+<MovieList Movies="movies">
+    <NullTemplate>
+        Loading movie content...
+    </NullTemplate>
+    <EmptyTemplate>
+        <text>The are no movies to be displayed...</text>
+    </EmptyTemplate>
+</MovieList>
 
 @code {
 
