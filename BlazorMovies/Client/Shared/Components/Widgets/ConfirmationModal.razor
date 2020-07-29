@@ -1,0 +1,40 @@
+﻿@if (IsVisible)
+{
+    <!-- This creates a dim effect on the background -->
+    <div class="modal-backdrop"></div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" @onclick="OnCancel" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="OnCancel" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @onclick="OnConfirm">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+
+    [Parameter] public string Title { get; set; } = "Confirmation";
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+
+    public bool IsVisible { get; set; }
+
+    public void Show() => IsVisible = true;
+    public void Hide() => IsVisible = false;
+    
+}
