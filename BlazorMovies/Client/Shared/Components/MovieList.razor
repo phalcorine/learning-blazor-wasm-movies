@@ -35,18 +35,21 @@
         Console.WriteLine($"Deleting movie: { movie }...");
 
         // Delete movie confirmation
-        var confirmed = await JS.InvokeAsync<bool>("confirm", $"Do you really want to delete the movie: { movie.Title }");
+        // var confirmed = await JS.InvokeAsync<bool>("confirm", );
+        var confirmed = await JS.Confirm($"Do you really want to delete the movie: { movie.Title }");
 
         if(confirmed == false)
         {
-            await JS.InvokeVoidAsync("alert", "Better safe than sorry...");
+            // await JS.InvokeVoidAsync("alert", "Better safe than sorry...");
+            await JS.Alert("Better safe than sorry...");
 
             return;
         }
 
         await Task.Delay(5000);
         Movies.Remove(movie);
-        await JS.InvokeVoidAsync("alert", "Yay! Movie deleted successfully...");
+        // await JS.InvokeVoidAsync("alert", "Yay! Movie deleted successfully...");
+        await JS.Alert("Yay! Movie deleted successfully...");
         Console.WriteLine($"{ movie } deleted!!!");
     }
 
