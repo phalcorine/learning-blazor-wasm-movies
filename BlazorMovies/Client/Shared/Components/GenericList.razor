@@ -1,0 +1,60 @@
+﻿@typeparam Titem
+
+<div class="container-fluid">
+    @if (List == null)
+    {
+        @if (NullTemplate != null)
+        {
+            @NullTemplate
+        }
+        else
+        {
+            <h4 class="card-title" align="center">
+                The content is loading...
+            </h4>
+        }
+
+    }
+    else if (List.Count == 0)
+    {
+        @if (EmptyTemplate != null)
+        {
+            @EmptyTemplate
+        }
+        else
+        {
+            <h4 class="card-title" align="center">
+                No records found in the database...
+            </h4>
+        }
+
+    }
+    else
+    {
+        @ChildContent
+
+        <div class="row">
+            @foreach (var element in List)
+            {
+                @ElementTemplate(element)
+                
+            }
+        </div>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment NullTemplate { get; set; }
+    [Parameter]
+    public RenderFragment EmptyTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<Titem> ElementTemplate { get; set; }
+    [Parameter]
+    public IList<Titem> List { get; set; }
+
+}

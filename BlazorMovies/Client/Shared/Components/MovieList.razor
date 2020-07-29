@@ -1,55 +1,23 @@
-﻿@using Client.Helpers;
+﻿
 
-<div class="container-fluid">
-    @if (Movies == null)
-    {
-        @if(NullTemplate != null)
-        {
-            @NullTemplate
-        }
-        else
-        {
-            <h4 class="card-title" align="center">
-                The content is loading...
-            </h4>
-        }
-        
-    }
-    else if (Movies.Count == 0)
-    {
-        @if(EmptyTemplate != null)
-        {
-            @EmptyTemplate
-        }
-        else
-        {
-            <h4 class="card-title" align="center">
-                No records found in the database...
-            </h4>
-        }
-        
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-md-4">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" @bind="@isAdmin" />IS Admin?
-                    </label>
+    <GenericList List="Movies">
+
+        <ChildContent>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" @bind="@isAdmin" />IS Admin?
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-            
-        <div class="row">
-            @foreach (var movie in Movies)
-            {
-                <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
-            }
-        </div>
-    }
-
-</div>
+        </ChildContent>
+       
+        <ElementTemplate Context="movie">
+            <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
+        </ElementTemplate>
+    </GenericList>
 
 @code {
 
