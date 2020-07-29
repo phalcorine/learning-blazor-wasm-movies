@@ -1,23 +1,23 @@
-﻿
+﻿@inject IJSRuntime JS
 
-    <GenericList List="Movies">
+<GenericList List="Movies">
 
-        <ChildContent>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" @bind="@isAdmin" />IS Admin?
-                        </label>
-                    </div>
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @bind="@isAdmin" />IS Admin?
+                    </label>
                 </div>
             </div>
-        </ChildContent>
+        </div>
+    </ChildContent>
        
-        <ElementTemplate Context="movie">
-            <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
-        </ElementTemplate>
-    </GenericList>
+    <ElementTemplate Context="movie">
+        <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
+    </ElementTemplate>
+</GenericList>
 
 @code {
 
@@ -33,8 +33,20 @@
     async Task DeleteMovie(Movie movie)
     {
         Console.WriteLine($"Deleting movie: { movie }...");
+
+        // Delete movie confirmation
+        var confirmed = await JS.InvokeAsync<bool>("confirm", $"Do you really want to delete the movie: { movie.Title }");
+
+        if(confirmed == false)
+        {
+            await JS.InvokeVoidAsync("alert", "Better safe than sorry...");
+
+            return;
+        }
+
         await Task.Delay(5000);
         Movies.Remove(movie);
+        await JS.InvokeVoidAsync("alert", "Yay! Movie deleted successfully...");
         Console.WriteLine($"{ movie } deleted!!!");
     }
 
