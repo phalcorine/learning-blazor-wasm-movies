@@ -4,8 +4,12 @@ using System.Text;
 
 namespace BlazorMovies.Shared.Domain.Repositories
 {
-    interface ICrudRepository<TEntity>
+    public interface ICrudRepository<TEntity> where TEntity : class
     {
-        IList<TEntity> GetMovies();
+        IList<TEntity> FindAll();
+
+        IList<TEntity> Find(string where);
+
+        IList<TEntity> FindById();
     }
 }

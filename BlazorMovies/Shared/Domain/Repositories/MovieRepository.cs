@@ -5,9 +5,19 @@ using System.Text;
 
 namespace BlazorMovies.Shared.Domain.Repositories
 {
-    public class MovieRepository : ICrudRepository<Movie>
+    public class MovieRepository : IMovieRepository
     {
-        public IList<Movie> GetMovies()
+        public IList<Movie> Find(string where)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Movie> FindById()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Movie> FindAll()
         {
             return new List<Movie>()
             {
