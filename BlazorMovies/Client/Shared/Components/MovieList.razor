@@ -1,42 +1,40 @@
 ﻿@using Client.Helpers;
 
 <div class="container-fluid">
-    <div class="row">
-        @if (Movies == null)
-        {
-            <h4 class="card-title" align="center">
-                Movies are loading...
-            </h4>
-        }
-        else if (Movies.Count == 0)
-        {
-            <h4 class="card-title" align="center">
-                No movies found in the database...
-            </h4>
-        }
-        else
-        {
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" @bind="@isAdmin" />IS Admin?
-                        </label>
-                    </div>
+    @if (Movies == null)
+    {
+        <h4 class="card-title" align="center">
+            Movies are loading...
+        </h4>
+    }
+    else if (Movies.Count == 0)
+    {
+        <h4 class="card-title" align="center">
+            No movies found in the database...
+        </h4>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" @bind="@isAdmin" />IS Admin?
+                    </label>
                 </div>
             </div>
+        </div>
             
-            <div class="row">
-                @foreach (var movie in Movies)
-                {
-                    <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
-                }
-            </div>
+        <div class="row">
+            @foreach (var movie in Movies)
+            {
+                <MovieItem Movie="movie" IsAdmin="isAdmin" DeleteMovie="DeleteMovie" />
+            }
+        </div>
             
 
-        }
+    }
 
-    </div>
 </div>
 
 @code {
